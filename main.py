@@ -1,4 +1,6 @@
 import gpxpy
+import os
+import glob
 
 
 def parsegpx(f):
@@ -31,8 +33,9 @@ def export_txt(f, data):
 
 
 if __name__ == '__main__':
-    name_file = '8526066-track-1526484619-309.gpx'
-    name_txt = '8526066-track-1526484619-309.txt'
-
-    all_points = parsegpx(name_file)
-    export_txt(name_txt, all_points)
+    path_data = os.path.join('Data', '*.gpx')
+    filenames = sorted(glob.glob(path_data))
+    for f in filenames:
+        f_txt = f.replace('.gpx', '.txt')
+        all_points = parsegpx(f)
+        export_txt(f_txt, all_points)
